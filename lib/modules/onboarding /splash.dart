@@ -1,17 +1,30 @@
+import 'package:doctor_consultant/components/my_bottom.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({ Key? key }) : super(key: key);
+class Loading extends StatelessWidget {
+  const Loading({Key? key}) : super(key: key);
 
-  @override
-  _SplashState createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyBottomNavigationBar(),
+        ),
+      );
+    });
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Image.asset(
+          'assets/images/loading.png',
+          width: 398.w,
+          height: 398.h,
+        ),
+      ),
     );
   }
 }
