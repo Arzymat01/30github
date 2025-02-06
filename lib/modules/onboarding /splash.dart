@@ -1,4 +1,4 @@
-import 'package:doctor_consultant/components/my_bottom.dart';
+import 'package:doctor_consultant/modules/onboarding%20/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,11 +7,11 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MyBottomNavigationBar(),
+          builder: (context) => OnboardingScreen(),
         ),
       );
     });
@@ -22,7 +22,7 @@ class Loading extends StatelessWidget {
         children: [
           Image.asset(
             'assets/images/baground.png',
-            fit: BoxFit.cover, // Сүрөттү экранга толук жайгаштыруу
+            fit: BoxFit.cover,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
