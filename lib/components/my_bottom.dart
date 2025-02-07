@@ -1,4 +1,3 @@
-import 'package:doctor_consultant/constants/color.dart';
 import 'package:doctor_consultant/modules/diagonstics%20/screen/diagonstics%20_screen.dart';
 import 'package:doctor_consultant/modules/favoirite/screen/favorite_screen.dart';
 import 'package:doctor_consultant/modules/home/screen/home_scrren.dart';
@@ -17,7 +16,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 0;
 
   static final List<Widget> _pages = [
-    HomeScrren(),
+    HomeScreen(),
     FavoriteScreen(),
     DiagonsticsScreen(),
     MessagesScreen()
