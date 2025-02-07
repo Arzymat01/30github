@@ -4,8 +4,7 @@ import 'package:doctor_consultant/modules/favoirite/screen/favorite_screen.dart'
 import 'package:doctor_consultant/modules/home/screen/home_scrren.dart';
 import 'package:doctor_consultant/modules/messages/screen/messages_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({super.key});
@@ -33,7 +32,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: _pages[_selectedIndex],
       bottomNavigationBar: _buildCustomBottomNavigationBar(),
     );
@@ -41,63 +39,54 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   Widget _buildCustomBottomNavigationBar() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: AppColors.borderBottom, width: 2),
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 2,
+          )
+        ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(3, (index) => _buildNavItem(index)),
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: List.generate(4, (index) => _buildNavItem(index)),
       ),
     );
   }
 
   Widget _buildNavItem(int index) {
     final List<String> assetPaths = [
-      'assets/icons/content.svg',
-      'assets/icons/finance.svg',
-      'assets/icons/setting.svg',
-    ];
-    final List<String> labels = [
-      'Content',
-      'Finance',
-      'Settings',
+      'assets/icons/icon1.svg',
+      'assets/icons/icon2.svg',
+      'assets/icons/icon3.svg',
+      'assets/icons/icon4.svg',
     ];
 
     bool isSelected = _selectedIndex == index;
 
     return GestureDetector(
       onTap: () => _onItemTapped(index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      child: Container(
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF3A47D5) : Colors.transparent,
-          borderRadius: BorderRadius.circular(24),
+          shape: BoxShape.circle,
+          color: isSelected ? Color(0xFF0EBE7E) : Colors.transparent,
         ),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              assetPaths[index],
-              width: 22.w,
-              color: Colors.white,
-            ),
-            if (isSelected) ...[
-              const SizedBox(width: 8),
-              Text(
-                labels[index],
-                style: TextStyle(
-                  fontFamily: 'Tomorrow',
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.sp,
-                ),
-              ),
-            ],
-          ],
+        child: SvgPicture.asset(
+          assetPaths[index],
+          width: 22,
+          height: 22,
+          colorFilter: ColorFilter.mode(
+            isSelected ? Colors.white : Colors.grey,
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );
