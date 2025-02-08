@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,6 +17,14 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 16),
               _buildSearchBar(),
               const SizedBox(height: 16),
+              Text(
+                'Live Doctors',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                ),
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -29,8 +35,41 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 16),
-              _buildCategoryIcons(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    OrganWidjet(
+                      color: Color(0xFF3154F4),
+                      image: 'assets/icons/tish.png',
+                    ),
+                    SizedBox(width: 15),
+                    OrganWidjet(
+                      color: Color(0xFF0CC78E),
+                      image: 'assets/icons/heart.png',
+                    ),
+                    SizedBox(width: 15),
+                    OrganWidjet(
+                      color: Color(0xFFFE8246),
+                      image: 'assets/icons/koz.png',
+                    ),
+                    SizedBox(width: 15),
+                    OrganWidjet(
+                      color: Color(0xFFFF5251),
+                      image: 'assets/icons/koz.png',
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Popular Doctor',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                ),
+              ),
               const SizedBox(height: 16),
               _buildPopularDoctors(),
               const SizedBox(height: 16),
@@ -106,18 +145,29 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Widget _buildCategoryIcons() {
-  List<String> icons = [
-    "assets/icons/koz.png",
-    "assets/icons/tish.png",
-    "assets/icons/heaert.png",
-    "assets/icons/bel.png",
-  ];
+class OrganWidjet extends StatelessWidget {
+  final String image;
+  final Color color;
+  const OrganWidjet({
+    super.key,
+    required this.image,
+    required this.color,
+  });
 
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: icons.map((icon) => SvgPicture.asset(icon, width: 50)).toList(),
-  );
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 113,
+      height: 119,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20), // Бурчтарды жумшартуу
+      ),
+      child: Image.asset(
+        image,
+      ),
+    );
+  }
 }
 
 Widget _buildPopularDoctors() {
