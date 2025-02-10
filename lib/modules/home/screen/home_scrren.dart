@@ -1,3 +1,4 @@
+import 'package:doctor_consultant/modules/home/screen/live_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -29,9 +30,9 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _buildLiveDoctorItem("assets/images/image1.png"),
-                    _buildLiveDoctorItem("assets/images/image2.png"),
-                    _buildLiveDoctorItem("assets/images/image3.png"),
+                    _buildLiveDoctorItem(context, "assets/images/image1.png"),
+                    _buildLiveDoctorItem(context, "assets/images/image2.png"),
+                    _buildLiveDoctorItem(context, "assets/images/image3.png"),
                   ],
                 ),
               ),
@@ -117,26 +118,43 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLiveDoctorItem(String imagePath) {
+  Widget _buildLiveDoctorItem(
+    BuildContext context,
+    String imagePath,
+  ) {
     return Stack(
       alignment: Alignment.center,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.asset(imagePath, width: 150, fit: BoxFit.cover),
+          child: Image.asset(imagePath,
+              width: 150, height: 200, fit: BoxFit.cover),
         ),
         Positioned(
-          top: 8,
-          left: 8,
+          top: 25,
+          right: 30,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: Text("LIVE",
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DoctorlifeScreen()),
+                );
+              },
+              child: Text(
+                "LIVE",
                 style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12, // Кичинекей текст
+                ),
+              ),
+            ),
           ),
         ),
         Icon(Icons.play_circle_fill, color: Colors.white, size: 40),
