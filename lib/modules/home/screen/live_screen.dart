@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DoctorlifeScreen extends StatelessWidget {
   const DoctorlifeScreen({super.key});
@@ -29,6 +30,14 @@ class DoctorlifeScreen extends StatelessWidget {
             ),
           ),
           Positioned(
+            top: 30,
+            right: 20,
+            child: CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage('assets/images/profil_live0.png'),
+            ),
+          ),
+          Positioned(
             bottom: 0,
             left: 0,
             right: 0,
@@ -36,27 +45,60 @@ class DoctorlifeScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildCommentItem(
-                    'Everhart Tween', 'Thanks for sharing doctor', '❤️'),
-                _buildCommentItem('Bonebrake Mash',
-                    'They treat immune system disorders', '💬'),
+                  'Everhart Tween',
+                  'Thanks for sharing doctor❤️',
+                  'assets/images/profil_live1.png',
+                ),
                 _buildCommentItem(
-                    'Handler Wack', 'This is the largest directory', '👍'),
+                  'Bonebrake Mash',
+                  'They treat immune system disorders',
+                  'assets/images/profil_live2.png',
+                ),
                 _buildCommentItem(
-                    'Comfort Love', 'Depending on their education', '💡'),
+                  'Handler Wack',
+                  'This is the largest directory👍',
+                  'assets/images/profil_live3.png',
+                ),
+                _buildCommentItem(
+                  'Comfort Love',
+                  'Depending on their education🙂',
+                  'assets/images/profil_live4.png',
+                ),
                 const SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(
-                    prefixIcon:
-                        const Icon(Icons.chat_bubble, color: Colors.green),
-                    hintText: 'Add a Comment...',
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0EBE7E),
+                          shape: BoxShape
+                              .circle, // Контейнерди толугу менен тегерек кылат
+                        ),
+                        child: SvgPicture.asset(
+                          'assets/icons/messages.svg',
+                        ),
+                      ),
+                      hintText: 'Add a Comment......',
+                      hintStyle: TextStyle(color: Colors.grey.shade600),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                      suffixIcon: SizedBox(
+                        child: SvgPicture.asset(
+                          'assets/icons/emodzi.svg',
+                        ),
+                      ),
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -65,13 +107,18 @@ class DoctorlifeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCommentItem(String username, String comment, String emoji) {
+  Widget _buildCommentItem(
+    String username,
+    String comment,
+    String imagePath,
+  ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage('assets/user.png'),
+          CircleAvatar(
+            backgroundImage: AssetImage(imagePath),
             radius: 20,
           ),
           const SizedBox(width: 10),
@@ -81,19 +128,16 @@ class DoctorlifeScreen extends StatelessWidget {
               children: [
                 Text(
                   username,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 Text(
                   comment,
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ],
             ),
           ),
-          Text(emoji, style: const TextStyle(fontSize: 18)),
         ],
       ),
     );
