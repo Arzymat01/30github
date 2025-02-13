@@ -1,3 +1,4 @@
+import 'package:doctor_consultant/modules/auth/login/widgets/forgot_password.dart';
 import 'package:doctor_consultant/modules/auth/sign_up/screen/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -102,7 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 10),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showEmailDialog(context);
+                  },
                   child: Text(
                     'Forgot password',
                     style: TextStyle(color: Color(0xFF0EBE7F)),

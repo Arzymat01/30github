@@ -1,4 +1,5 @@
 import 'package:doctor_consultant/modules/auth/login/screen/login.dart';
+import 'package:doctor_consultant/service/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -6,7 +7,6 @@ class Signup extends StatefulWidget {
   const Signup({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SignupState createState() => _SignupState();
 }
 
@@ -14,11 +14,50 @@ class _SignupState extends State<Signup> {
   bool _obscureText = true;
 
   bool _agreeToTerms = false;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  // Колдонуучуну каттоо
+  void _signUp() async {
+    if (!_agreeToTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                "Сиз Terms of Service & Privacy Policy менен макул болуңуз")),
+      );
+      return;
+    }
+
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
+    if (email.isNotEmpty && password.isNotEmpty) {
+      var user = await _authService.signUpWithEmail(email, password);
+      if (user != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Каттоо учурунда ката кетти")),
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,6 +102,7 @@ class _SignupState extends State<Signup> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: _nameController,
                   decoration: InputDecoration(
                     hintText: 'Name',
                     border: OutlineInputBorder(
@@ -72,6 +112,7 @@ class _SignupState extends State<Signup> {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     hintText: 'Email',
                     border: OutlineInputBorder(
@@ -81,6 +122,7 @@ class _SignupState extends State<Signup> {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
+                  controller: _passwordController,
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     hintText: 'Password',

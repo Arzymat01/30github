@@ -1,4 +1,3 @@
-import 'package:doctor_consultant/components/my_bottom.dart';
 import 'package:doctor_consultant/modules/auth/login/screen/login.dart';
 import 'package:flutter/material.dart';
 
