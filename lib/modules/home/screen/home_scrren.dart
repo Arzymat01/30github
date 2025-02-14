@@ -6,76 +6,78 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              const SizedBox(height: 16),
-              _buildSearchBar(),
-              const SizedBox(height: 16),
-              Text(
-                'Live Doctors',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 17,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(),
+                const SizedBox(height: 16),
+                _buildSearchBar(),
+                const SizedBox(height: 16),
+                Text(
+                  'Live Doctors',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 17,
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _buildLiveDoctorItem(context, "assets/images/image1.png"),
-                    _buildLiveDoctorItem(context, "assets/images/image2.png"),
-                    _buildLiveDoctorItem(context, "assets/images/image3.png"),
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      _buildLiveDoctorItem(context, "assets/images/image1.png"),
+                      _buildLiveDoctorItem(context, "assets/images/image2.png"),
+                      _buildLiveDoctorItem(context, "assets/images/image3.png"),
+                    ],
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    OrganWidjet(
-                      color: Color(0xFF3154F4),
-                      image: 'assets/icons/tish.png',
-                    ),
-                    SizedBox(width: 15),
-                    OrganWidjet(
-                      color: Color(0xFF0CC78E),
-                      image: 'assets/icons/heart.png',
-                    ),
-                    SizedBox(width: 15),
-                    OrganWidjet(
-                      color: Color(0xFFFE8246),
-                      image: 'assets/icons/koz.png',
-                    ),
-                    SizedBox(width: 15),
-                    OrganWidjet(
-                      color: Color(0xFFFF5251),
-                      image: 'assets/icons/koz.png',
-                    ),
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      OrganWidjet(
+                        color: Color(0xFF3154F4),
+                        image: 'assets/icons/tish.png',
+                      ),
+                      SizedBox(width: 15),
+                      OrganWidjet(
+                        color: Color(0xFF0CC78E),
+                        image: 'assets/icons/heart.png',
+                      ),
+                      SizedBox(width: 15),
+                      OrganWidjet(
+                        color: Color(0xFFFE8246),
+                        image: 'assets/icons/koz.png',
+                      ),
+                      SizedBox(width: 15),
+                      OrganWidjet(
+                        color: Color(0xFFFF5251),
+                        image: 'assets/icons/koz.png',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Popular Doctor',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 17,
+                SizedBox(height: 20),
+                Text(
+                  'Popular Doctor',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 17,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              _buildPopularDoctors(),
-              const SizedBox(height: 16),
-              _buildFeatureDoctors(),
-            ],
+                const SizedBox(height: 16),
+                _buildPopularDoctors(),
+                const SizedBox(height: 16),
+                _buildFeatureDoctors(),
+              ],
+            ),
           ),
         ),
       ),

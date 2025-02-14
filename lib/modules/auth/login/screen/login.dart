@@ -1,5 +1,6 @@
 import 'package:doctor_consultant/modules/auth/login/widgets/forgot_password.dart';
 import 'package:doctor_consultant/modules/auth/sign_up/screen/signup.dart';
+import 'package:doctor_consultant/modules/home/screen/home_scrren.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,6 +16,26 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  String _errorMessage = '';
+
+  void _onLogin() {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    if (email == 'user' && password == '12345') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    } else {
+      setState(() {
+        _errorMessage = 'Неправильный логин или пароль!';
+      });
+    }
   }
 
   @override
@@ -59,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     hintText: 'itsmemamun1@gmail.com',
                     border: OutlineInputBorder(
@@ -69,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
+                  controller: _passwordController,
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     hintText: 'Password',
@@ -85,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _onLogin,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF0EBE7F),
                     minimumSize: Size(double.infinity, 50),

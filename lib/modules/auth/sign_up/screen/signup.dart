@@ -1,5 +1,5 @@
 import 'package:doctor_consultant/modules/auth/login/screen/login.dart';
-import 'package:doctor_consultant/service/auth_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,39 +17,11 @@ class _SignupState extends State<Signup> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
 
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
-  }
-
-  // Колдонуучуну каттоо
-  void _signUp() async {
-    if (!_agreeToTerms) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                "Сиз Terms of Service & Privacy Policy менен макул болуңуз")),
-      );
-      return;
-    }
-
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
-
-    if (email.isNotEmpty && password.isNotEmpty) {
-      var user = await _authService.signUpWithEmail(email, password);
-      if (user != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Каттоо учурунда ката кетти")),
-        );
-      }
-    }
   }
 
   @override
