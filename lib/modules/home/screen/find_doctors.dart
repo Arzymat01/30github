@@ -1,46 +1,60 @@
 import 'package:flutter/material.dart';
 
-class FindDoctorsPage extends StatelessWidget {
+class Doctor {
+  final String name;
+  final String specialty;
+  final String experience;
+  final String rating;
+  final String reviews;
+  final String availableTime;
+  final String image;
+  bool isFavorite; // Like абалын өзгөртүү үчүн
+
+  Doctor({
+    required this.name,
+    required this.specialty,
+    required this.experience,
+    required this.rating,
+    required this.reviews,
+    required this.availableTime,
+    required this.image,
+    this.isFavorite = false, // Default боюнча false (Like басылбаган)
+  });
+}
+
+class FindDoctorsPage extends StatefulWidget {
+  @override
+  _FindDoctorsPageState createState() => _FindDoctorsPageState();
+}
+
+class _FindDoctorsPageState extends State<FindDoctorsPage> {
   final List<Doctor> doctors = [
     Doctor(
-      name: "Dr. Shruti Kedia",
-      specialty: "Tooths Dentist",
-      experience: "7 Years experience",
+      name: "Dr. Tranquilli",
+      specialty: "Specialist Medicine",
+      experience: "6 Years experience",
       rating: "87%",
       reviews: "69 Patient Stories",
       availableTime: "10:00 AM tomorrow",
       image: "assets/images/2.png",
-      isFavorite: true,
     ),
     Doctor(
-      name: "Dr. Watamaniuk",
-      specialty: "Tooths Dentist",
-      experience: "9 Years experience",
-      rating: "74%",
-      reviews: "78 Patient Stories",
+      name: "Dr. Bonebrake",
+      specialty: "Specialist Dentist",
+      experience: "8 Years experience",
+      rating: "59%",
+      reviews: "82 Patient Stories",
       availableTime: "12:00 AM tomorrow",
       image: "assets/images/1.png",
-      isFavorite: false,
     ),
     Doctor(
-      name: "Dr. Crownover",
-      specialty: "Tooths Dentist",
-      experience: "5 Years experience",
-      rating: "59%",
-      reviews: "86 Patient Stories",
+      name: "Dr. Luke Whitesell",
+      specialty: "Specialist Cardiology",
+      experience: "7 Years experience",
+      rating: "57%",
+      reviews: "76 Patient Stories",
       availableTime: "11:00 AM tomorrow",
       image: "assets/images/3.png",
-      isFavorite: true,
-    ),
-    Doctor(
-      name: "Dr. Balestra",
-      specialty: "Tooths Dentist",
-      experience: "6 Years experience",
-      rating: "90%",
-      reviews: "90 Patient Stories",
-      availableTime: "9:00 AM tomorrow",
-      image: "assets/images/1.png",
-      isFavorite: false,
     ),
   ];
 
@@ -52,7 +66,7 @@ class FindDoctorsPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text("Find Doctors"),
+        title: Text("My Doctors"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -60,7 +74,7 @@ class FindDoctorsPage extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: "Dentist",
+                hintText: "Search",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -72,7 +86,14 @@ class FindDoctorsPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: doctors.length,
                 itemBuilder: (context, index) {
-                  return DoctorCard(doctor: doctors[index]);
+                  return DoctorCard(
+                    doctor: doctors[index],
+                    onFavoriteToggle: () {
+                      setState(() {
+                        doctors[index].isFavorite = !doctors[index].isFavorite;
+                      });
+                    },
+                  );
                 },
               ),
             ),
@@ -83,32 +104,15 @@ class FindDoctorsPage extends StatelessWidget {
   }
 }
 
-class Doctor {
-  final String name;
-  final String specialty;
-  final String experience;
-  final String rating;
-  final String reviews;
-  final String availableTime;
-  final String image;
-  final bool isFavorite;
-
-  Doctor({
-    required this.name,
-    required this.specialty,
-    required this.experience,
-    required this.rating,
-    required this.reviews,
-    required this.availableTime,
-    required this.image,
-    required this.isFavorite,
-  });
-}
-
 class DoctorCard extends StatelessWidget {
   final Doctor doctor;
+  final VoidCallback onFavoriteToggle;
 
-  const DoctorCard({Key? key, required this.doctor}) : super(key: key);
+  const DoctorCard({
+    Key? key,
+    required this.doctor,
+    required this.onFavoriteToggle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,16 +141,22 @@ class DoctorCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        doctor.name,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                      Expanded(
+                        child: Text(
+                          doctor.name,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      Icon(
-                        doctor.isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: doctor.isFavorite ? Colors.red : Colors.grey,
+                      IconButton(
+                        icon: Icon(
+                          doctor.isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: doctor.isFavorite ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: onFavoriteToggle,
                       ),
                     ],
                   ),
@@ -164,35 +174,47 @@ class DoctorCard extends StatelessWidget {
                       SizedBox(width: 4),
                       Text(doctor.rating),
                       SizedBox(width: 8),
-                      Text(doctor.reviews,
-                          style: TextStyle(color: Colors.grey)),
+                      Expanded(
+                        child: Text(
+                          doctor.reviews,
+                          style: TextStyle(color: Colors.grey),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 4),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Next Available",
-                              style: TextStyle(color: Colors.green)),
-                          Text(doctor.availableTime,
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
+                      Text(
+                        "Next Available",
+                        style: TextStyle(
+                            color: Colors.green, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 40,
-                        width: 100,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              alignment: Alignment.center,
-                              backgroundColor: Colors.green),
-                          child: Text("Book Now"),
+                      SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          doctor.availableTime,
+                          style: TextStyle(color: Colors.black),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text("Book Now",
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
                 ],
               ),
