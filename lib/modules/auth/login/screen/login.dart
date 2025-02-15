@@ -20,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String _errorMessage = '';
 
   void _onLogin() {
     final email = _emailController.text;
@@ -31,10 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
       );
-    } else {
-      setState(() {
-        _errorMessage = 'Неправильный логин или пароль!';
-      });
     }
   }
 

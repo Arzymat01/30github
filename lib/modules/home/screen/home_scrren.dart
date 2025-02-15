@@ -1,3 +1,4 @@
+import 'package:doctor_consultant/modules/home/screen/find_doctors.dart';
 import 'package:doctor_consultant/modules/home/screen/live_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -73,7 +74,16 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                _buildPopularDoctors(),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FindDoctorsPage()),
+                    );
+                  },
+                  child: _buildPopularDoctors(),
+                ),
                 const SizedBox(height: 16),
                 _buildFeatureDoctors(),
               ],
