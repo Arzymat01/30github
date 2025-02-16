@@ -1,3 +1,5 @@
+import 'package:doctor_consultant/modules/home/screen/select_time.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Doctor {
@@ -8,7 +10,7 @@ class Doctor {
   final String reviews;
   final String availableTime;
   final String image;
-  bool isFavorite; // Like абалын өзгөртүү үчүн
+  bool isFavorite;
 
   Doctor({
     required this.name,
@@ -18,7 +20,7 @@ class Doctor {
     required this.reviews,
     required this.availableTime,
     required this.image,
-    this.isFavorite = false, // Default боюнча false (Like басылбаган)
+    this.isFavorite = false,
   });
 }
 
@@ -28,6 +30,8 @@ class FindDoctorsPage extends StatefulWidget {
 }
 
 class _FindDoctorsPageState extends State<FindDoctorsPage> {
+  TextEditingController _finnsearcgcontroller = TextEditingController();
+
   final List<Doctor> doctors = [
     Doctor(
       name: "Dr. Tranquilli",
@@ -61,43 +65,85 @@ class _FindDoctorsPageState extends State<FindDoctorsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/baground.png"),
+            fit: BoxFit.cover,
+          ),
         ),
-        title: Text("My Doctors"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Search",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Icon(
+                          CupertinoIcons.back,
+                          color: Colors.grey[700],
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  Text(
+                    'Find Doctors',
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+              TextField(
+                controller: _finnsearcgcontroller,
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  prefixIcon: Icon(Icons.search),
+                  suffixIcon: _finnsearcgcontroller.text.isNotEmpty
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            _finnsearcgcontroller.clear();
+                          },
+                        )
+                      : null,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
+                onChanged: (text) {},
+              ),
+              SizedBox(height: 16),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: doctors.length,
+                  itemBuilder: (context, index) {
+                    return DoctorCard(
+                      doctor: doctors[index],
+                      onFavoriteToggle: () {
+                        setState(() {
+                          doctors[index].isFavorite =
+                              !doctors[index].isFavorite;
+                        });
+                      },
+                    );
+                  },
                 ),
               ),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: doctors.length,
-                itemBuilder: (context, index) {
-                  return DoctorCard(
-                    doctor: doctors[index],
-                    onFavoriteToggle: () {
-                      setState(() {
-                        doctors[index].isFavorite = !doctors[index].isFavorite;
-                      });
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -211,7 +257,13 @@ class DoctorCard extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectTimeScreen()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF0EBE7F),
                         shape: RoundedRectangleBorder(
