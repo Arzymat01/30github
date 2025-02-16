@@ -170,9 +170,14 @@ class DoctorCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.green, size: 16),
+                      Icon(Icons.star, color: Color(0xFF0EBE7F), size: 16),
                       SizedBox(width: 4),
-                      Text(doctor.rating),
+                      Text(
+                        doctor.rating,
+                        style: TextStyle(
+                          color: Color(0xFF0EBE7F),
+                        ),
+                      ),
                       SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -189,7 +194,8 @@ class DoctorCard extends StatelessWidget {
                       Text(
                         "Next Available",
                         style: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold),
+                            color: Color(0xFF0EBE7F),
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(width: 4),
                       Expanded(
@@ -207,7 +213,7 @@ class DoctorCard extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: Color(0xFF0EBE7F),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
