@@ -2,25 +2,31 @@ import 'package:doctor_consultant/modules/home/screen/find_doctors.dart';
 import 'package:doctor_consultant/modules/home/screen/live_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 16),
-                _buildSearchBar(),
-                const SizedBox(height: 16),
-                Text(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(),
+              const SizedBox(height: 16),
+              _buildSearchBar(),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
                   'Live Doctors',
                   style: TextStyle(
                     color: Colors.black,
@@ -28,44 +34,47 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 17,
                   ),
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _buildLiveDoctorItem(context, "assets/images/image1.png"),
-                      _buildLiveDoctorItem(context, "assets/images/image2.png"),
-                      _buildLiveDoctorItem(context, "assets/images/image3.png"),
-                    ],
-                  ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildLiveDoctorItem(context, "assets/images/image1.png"),
+                    _buildLiveDoctorItem(context, "assets/images/image2.png"),
+                    _buildLiveDoctorItem(context, "assets/images/image3.png"),
+                  ],
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      OrganWidjet(
-                        color: Color(0xFF3154F4),
-                        image: 'assets/icons/tish.png',
-                      ),
-                      SizedBox(width: 15),
-                      OrganWidjet(
-                        color: Color(0xFF0CC78E),
-                        image: 'assets/icons/heart.png',
-                      ),
-                      SizedBox(width: 15),
-                      OrganWidjet(
-                        color: Color(0xFFFE8246),
-                        image: 'assets/icons/koz.png',
-                      ),
-                      SizedBox(width: 15),
-                      OrganWidjet(
-                        color: Color(0xFFFF5251),
-                        image: 'assets/icons/koz.png',
-                      ),
-                    ],
-                  ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    OrganWidjet(
+                      color: Color(0xFF3154F4),
+                      image: 'assets/icons/tish.png',
+                    ),
+                    SizedBox(width: 15),
+                    OrganWidjet(
+                      color: Color(0xFF0CC78E),
+                      image: 'assets/icons/heart.png',
+                    ),
+                    SizedBox(width: 15),
+                    OrganWidjet(
+                      color: Color(0xFFFE8246),
+                      image: 'assets/icons/koz.png',
+                    ),
+                    SizedBox(width: 15),
+                    OrganWidjet(
+                      color: Color(0xFFFF5251),
+                      image: 'assets/icons/koz.png',
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-                Text(
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
                   'Popular Doctor',
                   style: TextStyle(
                     color: Colors.black,
@@ -73,21 +82,20 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 17,
                   ),
                 ),
-                const SizedBox(height: 16),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FindDoctorsPage()),
-                    );
-                  },
-                  child: _buildPopularDoctors(),
-                ),
-                const SizedBox(height: 16),
-                _buildFeatureDoctors(),
-              ],
-            ),
+              ),
+              const SizedBox(height: 16),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FindDoctorsPage()),
+                  );
+                },
+                child: _buildPopularDoctors(),
+              ),
+              const SizedBox(height: 16),
+              _buildFeatureDoctors(),
+            ],
           ),
         ),
       ),
@@ -95,37 +103,77 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text("Hi Handwerker!",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-            Text("Find Your Doctor",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+      decoration: BoxDecoration(
+        color: Color(0xFF0EBE7F),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(25),
+          bottomRight: Radius.circular(25),
         ),
-        CircleAvatar(
-          radius: 24,
-          backgroundImage: AssetImage("assets/images/doc0.png"),
-        )
-      ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                "Hi Handwerker!",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 5),
+              Text(
+                "Find Your Doctor",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          CircleAvatar(
+            radius: 30, // Сүрөт чоңураак
+            backgroundImage: AssetImage("assets/images/doc0.png"),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildSearchBar() {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "Search...",
-        prefixIcon: Icon(Icons.search),
-        filled: true,
-        fillColor: Colors.grey[200],
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: TextField(
+        controller: _searchController,
+        decoration: InputDecoration(
+          hintText: "Search...",
+          prefixIcon: Icon(Icons.search),
+          suffixIcon: _searchController.text.isNotEmpty
+              ? IconButton(
+                  icon: Icon(Icons.close, color: Colors.black),
+                  onPressed: () {
+                    setState(() {
+                      _searchController.clear();
+                    });
+                  },
+                )
+              : null,
+          filled: true,
+          fillColor: Colors.grey[200],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
         ),
+        onChanged: (text) {
+          setState(() {}); // UI жаңыртуу үчүн
+        },
       ),
     );
   }
@@ -137,10 +185,13 @@ class HomeScreen extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(imagePath,
-              width: 150, height: 200, fit: BoxFit.cover),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(imagePath,
+                width: 150, height: 200, fit: BoxFit.cover),
+          ),
         ),
         Positioned(
           top: 25,
@@ -186,27 +237,33 @@ class OrganWidjet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 113,
-      height: 119,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(20), // Бурчтарды жумшартуу
-      ),
-      child: Image.asset(
-        image,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: 113,
+        height: 119,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(20), // Бурчтарды жумшартуу
+        ),
+        child: Image.asset(
+          image,
+        ),
       ),
     );
   }
 }
 
 Widget _buildPopularDoctors() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      _buildDoctorCard("Dr. Fillerup Grab", "Medicine Specialist"),
-      _buildDoctorCard("Dr. Blessing", "Dentist Specialist"),
-    ],
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildDoctorCard("Dr. Fillerup Grab", "Medicine Specialist"),
+        _buildDoctorCard("Dr. Blessing", "Dentist Specialist"),
+      ],
+    ),
   );
 }
 
@@ -247,25 +304,29 @@ Widget _buildFeatureDoctors() {
 }
 
 Widget _buildFeatureDoctor(String name, String price, double rating) {
-  return Container(
-    width: 100,
-    padding: EdgeInsets.all(8),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(10),
-      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
-    ),
-    child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset("assets/images/doc3.png",
-              height: 60, fit: BoxFit.cover),
-        ),
-        Text(name, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-        Text(price, style: TextStyle(color: Colors.green)),
-        Text("⭐ $rating", style: TextStyle(color: Colors.orange)),
-      ],
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      width: 100,
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
+      ),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset("assets/images/doc3.png",
+                height: 60, fit: BoxFit.cover),
+          ),
+          Text(name,
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+          Text(price, style: TextStyle(color: Colors.green)),
+          Text("⭐ $rating", style: TextStyle(color: Colors.orange)),
+        ],
+      ),
     ),
   );
 }

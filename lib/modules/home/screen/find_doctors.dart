@@ -110,12 +110,11 @@ class _FindDoctorsPageState extends State<FindDoctorsPage> {
                   prefixIcon: Icon(Icons.search),
                   suffixIcon: _finnsearcgcontroller.text.isNotEmpty
                       ? IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: Colors.black,
-                          ),
+                          icon: Icon(Icons.close, color: Colors.black),
                           onPressed: () {
-                            _finnsearcgcontroller.clear();
+                            setState(() {
+                              _finnsearcgcontroller.clear();
+                            });
                           },
                         )
                       : null,
@@ -123,7 +122,9 @@ class _FindDoctorsPageState extends State<FindDoctorsPage> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                 ),
-                onChanged: (text) {},
+                onChanged: (text) {
+                  setState(() {}); // UI жаңыртуу үчүн
+                },
               ),
               SizedBox(height: 16),
               Expanded(
@@ -163,6 +164,7 @@ class DoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: EdgeInsets.symmetric(vertical: 8),
       child: Padding(
