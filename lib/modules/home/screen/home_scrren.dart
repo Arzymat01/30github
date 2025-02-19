@@ -1,5 +1,6 @@
 import 'package:doctor_consultant/modules/home/screen/find_doctors.dart';
 import 'package:doctor_consultant/modules/home/screen/live_screen.dart';
+import 'package:doctor_consultant/modules/home/screen/popular_doctor.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -94,7 +95,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: _buildPopularDoctors(),
               ),
               const SizedBox(height: 16),
-              _buildFeatureDoctors(),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PopularDoctor()),
+                  );
+                },
+                child: _buildFeatureDoctors(),
+              ),
             ],
           ),
         ),
