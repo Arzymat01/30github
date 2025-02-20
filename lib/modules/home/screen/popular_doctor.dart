@@ -10,6 +10,8 @@ class PopularDoctor extends StatefulWidget {
 
 class _PopularDoctorState extends State<PopularDoctor> {
   TextEditingController _searchcon = TextEditingController();
+  bool _isSearchVisible = false;
+
   final List<Map<String, String>> popularDoctors = [
     {
       'name': 'Dr. Truluck Nik',
@@ -29,7 +31,7 @@ class _PopularDoctorState extends State<PopularDoctor> {
     {
       'name': 'Dr. Someone',
       'specialty': 'Surgery Specialist',
-      'image': 'assets//images/popular4.png'
+      'image': 'assets/images/popular4.png'
     },
   ];
 
@@ -98,41 +100,52 @@ class _PopularDoctorState extends State<PopularDoctor> {
                     onPressed: () => Navigator.pop(context),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _isSearchVisible =
+                            !_isSearchVisible; // Button басканда TextField'дин көрүнүүсүн өзгөртүү
+                      });
+                    },
                     icon: Icon(
                       Icons.search,
                       color: Colors.grey,
                       size: 30,
                     ),
-                  )
+                  ),
                 ],
               ),
-              TextField(
-                controller: _searchcon,
-                decoration: InputDecoration(
-                  hintText: "Search...",
-                  prefixIcon: Icon(Icons.search),
-                  suffixIcon: _searchcon.text.isNotEmpty
-                      ? IconButton(
-                          icon: Icon(Icons.close, color: Colors.black),
-                          onPressed: () {
-                            setState(() {
-                              _searchcon.clear();
-                            });
-                          },
-                        )
-                      : null,
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
+              // Search TextField
+              if (_isSearchVisible)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: TextField(
+                    controller: _searchcon,
+                    decoration: InputDecoration(
+                      hintText: "Search...",
+                      prefixIcon: Icon(Icons.search),
+                      suffixIcon: _searchcon.text.isNotEmpty
+                          ? IconButton(
+                              icon: Icon(Icons.close, color: Colors.black),
+                              onPressed: () {
+                                setState(() {
+                                  _searchcon.clear();
+                                });
+                              },
+                            )
+                          : null,
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    onChanged: (text) {
+                      setState(() {}); // UI жаңыртуу үчүн
+                    },
                   ),
                 ),
-                onChanged: (text) {
-                  setState(() {}); // UI жаңыртуу үчүн
-                },
-              ),
+              SizedBox(height: 10),
               Text('Popular Doctor',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
