@@ -25,12 +25,15 @@ class Doctor {
 }
 
 class FindDoctorsPage extends StatefulWidget {
+  const FindDoctorsPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _FindDoctorsPageState createState() => _FindDoctorsPageState();
 }
 
 class _FindDoctorsPageState extends State<FindDoctorsPage> {
-  TextEditingController _finnsearcgcontroller = TextEditingController();
+  final TextEditingController _finnsearcgcontroller = TextEditingController();
 
   final List<Doctor> doctors = [
     Doctor(

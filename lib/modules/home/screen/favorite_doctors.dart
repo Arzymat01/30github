@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FavouriteDoctorsScreen extends StatelessWidget {
+  const FavouriteDoctorsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
