@@ -18,6 +18,7 @@ class RegistrationForm(forms.ModelForm):
 
         if password != password_confirmation:
             raise forms.ValidationError("Passwords do not match.")
+            print('23 day')
 
 # Кирүү формасы
 class LoginForm(AuthenticationForm):
