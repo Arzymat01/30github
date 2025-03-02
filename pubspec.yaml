@@ -19,6 +19,7 @@ dependencies:
   build_runner: ^2.4.15
   google_maps_flutter: ^2.10.0
   font_awesome_flutter: ^10.8.0
+  dio: ^5.8.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
