@@ -8,5 +8,7 @@ def home(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
+    path('products/', include('products.urls')),
     path('', home),  # Бул линия башкы маршрут үчүн
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
